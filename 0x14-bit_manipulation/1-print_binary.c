@@ -4,17 +4,21 @@
  * print_binary - Prints the binary representation of a number.
  * @n: The number to be printed in binary.
  */
-
 void print_binary(unsigned long int n)
 {
-	/* If n is greater than 1, recursively call print_binary with n shifted right by 1 bit */
-	if (n > 1)
-		print_binary(n >> 1);
+    int i, bit_count = sizeof(n) * 8;
 
-	/* Extract the least significant bit of n using the bitwise AND operator,
-	 * add it to the ASCII code of '0' to get the corresponding binary digit,
-	 * and print the digit to the console using _putchar()
-	 */
-	_putchar((n & 1) + '0');
+    /* Ignore leading zero bits */
+    for (i = bit_count - 1; i >= 0; i--)
+    {
+        if ((n >> i) & 1)
+            break;
+    }
+
+    /* Print remaining bits in reverse order */
+    for (; i >= 0; i--)
+    {
+        _putchar((n >> i) & 1 ? '1' : '0');
+    }
 }
 
