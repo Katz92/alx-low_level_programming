@@ -1,24 +1,33 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-/**
- *File: main.h
- *Auth: Katlego Magombo
- *Desc: Header file containing prototypes for all functions
- *written in the 0x14-file_io directory.
- */
-#include <stdlib.h>
 #include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-int _putchar(char c);
+#ifndef READ_TEXTFILE_H
+#define READ_TEXTFILE_H
+
 ssize_t read_textfile(const char *filename, size_t letters);
-int create_file(const char *filename, char *text_content);
-int append_text_to_file(const char *filename, char *text_content);
-int _strlen(char *str);
 
+#endif /* READ_TEXTFILE_H */
 
-#endif /*MAIN_H */
+int main(int ac, char **av)
+{
+	ssize_t n;
+
+	if (ac != 2)
+	{
+		dprintf(STDERR_FILENO, "Usage: %s filename\n", av[0]);
+		exit(EXIT_FAILURE);
+	}
+
+	n = read_textfile(av[1], 114);
+	printf("\n(printed chars: %li)\n", n);
+	n = read_textfile(av[1], 1024);
+	printf("\n(printed chars: %li)\n", n);
+	return (EXIT_SUCCESS);
+}
+
+#endif /* MAIN_H */
+
